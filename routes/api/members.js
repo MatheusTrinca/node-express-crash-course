@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router();
 const members = require('../../Members');
 const uuid = require('uuid');
-const { json } = require('express');
 
 // Gets All Members
 router.get('/', (req, res) => res.json(members));
@@ -24,13 +23,14 @@ router.post('/', (req, res) => {
     name: req.body.name,
     email: req.body.email,
     status: 'active'
-  }
+  };
   if(!newMember.name || !newMember.email){
     return res.status(400).json({msg: 'Name and Email are required'})
-  }
+  };
   members.push(newMember);
-  return res.json(members);
-})
+  res.json(members);
+  //res.redirect('/');
+});
 
 // Update Member
 router.put('/:id', (req, res) => {
